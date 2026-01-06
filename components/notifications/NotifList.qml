@@ -1,19 +1,13 @@
-// pragma ComponentBehavior: Bound
 import QtQuick
 import Quickshell
-import Quickshell.Wayland
-import Quickshell.Services.Notifications
 
 import "../services"
 import "../settings"
-
 Rectangle {
     id: root
     property int innerSpacing: 5
 
-    //implicitWidth: 100
     visible: true
-    //color: "grey"
 
     Item {
         id: notificationList

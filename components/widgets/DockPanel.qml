@@ -21,7 +21,7 @@ PopupPanel {
         right: 4
     }
     implicitWidth: 400
-    implicitHeight: 260
+    implicitHeight: 400
     visible: open
     property bool open: false
     color: "transparent"
@@ -108,25 +108,52 @@ PopupPanel {
                 implicitHeight: 2
                 implicitWidth: parent.width - 30
                 Layout.alignment: Qt.AlignHCenter
-                // color: Config.colors.fontcolor
                 color: '#414141'
             }
-
             RowLayout {
-                id: bright
-                Layout.fillWidth: true
 
-                BrightnessWidget {
-                    id: brightness
-                    Layout.topMargin: 10
-                    Layout.leftMargin: 10
+                ColumnLayout {
+                    id: sysInfo
+                    spacing: 5
+                RowLayout {
+                    id: bright
+                    Layout.fillWidth: true
+
+                    BrightnessWidget {
+                        id: brightness
+                        Layout.topMargin: 10
+                        Layout.leftMargin: 10
+                    }
+                    VolumeWidget {
+                        id: vol
+                        Layout.topMargin: 10
+                        Layout.leftMargin: 10
+                    }
+
                 }
-                VolumeWidget {
-                    id: vol
-                    Layout.topMargin: 10
-                    Layout.leftMargin: 10
+                RowLayout {
+                    Layout.fillWidth: true
+
+                    CpuWidget {
+                        id: cpu 
+                        Layout.topMargin: 10 
+                        Layout.leftMargin: 10 
+                    }
+                    MemWidget {
+                        id: mem 
+                        Layout.topMargin: 10 
+                        Layout.leftMargin: 10 
+                    }
                 }
             }
+            DiskWidget {
+                id: disk 
+                Layout.topMargin: 10 
+                Layout.leftMargin: 10 
+                // Layout.rightMargin: 10 
+            }
+            }
+
         }
     }
 }
