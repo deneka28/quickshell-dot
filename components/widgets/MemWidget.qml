@@ -14,7 +14,7 @@ CircleBat {
     showBackground: true
     arcBegin: 0
     arcEnd: 360 * (memInfo.memUsage / 100)
-    lineWidth: 9
+    lineWidth: 4
     Rectangle {
         id: separator
         implicitHeight: 2

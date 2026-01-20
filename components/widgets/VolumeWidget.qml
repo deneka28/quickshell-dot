@@ -15,7 +15,7 @@ CircleBat {
     showBackground: true
     arcBegin: 0
     arcEnd: 360 * pipew.node.audio.volume
-    lineWidth: 9
+    lineWidth: 4
 
     PipewireIO {
         id: pipew

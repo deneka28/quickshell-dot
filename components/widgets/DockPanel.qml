@@ -36,7 +36,7 @@ PopupPanel {
         border.width: 1
         border.color: '#0cc0f2'
 
-        ColumnLayout {
+ColumnLayout {
             id: mainLayout
             anchors.fill: parent
 

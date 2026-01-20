@@ -119,6 +119,7 @@ Item {
                     BarItem {
                         KbLayout {}
                     }
+                    ClipboardButton {}
                     BarItem {
                         SysTray {
                             anchors.verticalCenter: parent.verticalCenter

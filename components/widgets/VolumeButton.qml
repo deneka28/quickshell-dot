@@ -16,6 +16,7 @@ CircleBat {
     showBackground: true
     arcBegin: 0
     arcEnd: 360 * pipew.node.audio.volume
+    lineWidth: 2
 
     HyprlandFocusGrab {
         id: grab

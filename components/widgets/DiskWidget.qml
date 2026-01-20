@@ -12,12 +12,12 @@ Rectangle {
     property string freeRoot: info.storRootFree
     property string freeHome: info.storHomeFree
     property int totalHome: info.storHomeFree + info.storHomeUsed
-    property int totalRoot: info.storRootFree + info.storRootUsed 
+    property int totalRoot: info.storRootFree + info.storRootUsed
 
     implicitWidth: 165
     implicitHeight: 200
-    
-    radius: 6 
+
+    radius: 6
     color: "#454545"
 
     RowLayout {
@@ -33,27 +33,24 @@ Rectangle {
             CustomProgress {
                 id: useHomeProg
                 progHeight: 158
-                progWidth: 10
+                progWidth: 6
                 progRadius: 10
                 bgColor: Config.colors.controlscolor
                 fgColor: Config.colors.mainColor2
                 fgWidth: progWidth
                 value: (useHomeProg.height / root.totalHome) * info.storHomeUsed
-                // value: 37
-                anchors.bottom: useHome.top 
-                Layout.leftMargin: useHome.width / 2 
+                anchors.bottom: useHome.top
+                Layout.leftMargin: (root.width / 2) / 2
                 Layout.topMargin: 10
             }
             Text {
                 id: useHome
-                width: root.width / 2 
                 text: "/home: " + root.useHome + "/" + root.freeHome + "G"
                 font.family: Config.family
                 font.pixelSize: 10
                 color: Config.colors.fontcolor
                 topPadding: 5
                 leftPadding: 5
-                anchors.bottom: diskL.bottom
             }
         }
         ColumnLayout {
@@ -65,27 +62,25 @@ Rectangle {
             CustomProgress {
                 id: useRootProg
                 progHeight: 158
-                progWidth: 10
+                progWidth: 6 
                 progRadius: 10
                 bgColor: Config.colors.controlscolor
                 fgColor: Config.colors.mainColor2
                 fgWidth: progWidth
-                // value: 80
                 value: (useRootProg.height / root.totalRoot) * info.storRootUsed
-                anchors.bottom: useHome.top 
-                Layout.leftMargin: useHome.width / 2 
+                anchors.bottom: useHome.top
+                Layout.leftMargin: (root.width / 2) / 2 - this.width
                 Layout.topMargin: 10
             }
             Text {
                 id: useRoot
-                width: root.width / 2 
+                width: root.width / 2
                 text: "/: " + root.useRoot + "/" + root.freeRoot + "G"
                 font.family: Config.family
                 font.pixelSize: 10
                 color: Config.colors.fontcolor
                 topPadding: 5
                 leftPadding: 5
-                anchors.bottom: diskL.bottom
             }
         }
     }

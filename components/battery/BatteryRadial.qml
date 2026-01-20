@@ -12,6 +12,7 @@ CircleBat {
     showBackground: true
     arcBegin: 0
     arcEnd: 360 * UPower.displayDevice.percentage
+    lineWidth: 2
     property int percentageBatt: UPower.displayDevice.percentage * 100
     property int isLowBatt: percentageBatt > 30
 

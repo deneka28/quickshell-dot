@@ -1,7 +1,6 @@
 import QtQuick
 pragma Singleton
 pragma ComponentBehavior: Bound
-import Quickshell
 
 Item {
     id: root

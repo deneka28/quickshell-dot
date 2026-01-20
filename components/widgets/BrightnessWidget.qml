@@ -14,7 +14,7 @@ CircleBat {
     showBackground: true
     arcBegin: 0
     arcEnd: monitor ? 360 *  monitor.brightness : 360 * 0.5
-    lineWidth: 9
+    lineWidth: 4
 
     property var monitor: Brightness.monitors.length > 0 ? Brightness.monitors[0] : null
 

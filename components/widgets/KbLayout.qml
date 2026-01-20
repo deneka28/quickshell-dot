@@ -10,8 +10,6 @@ Item {
     implicitHeight: 30
     implicitWidth: 30
 
-    //required property string monitorId
-
     MouseArea {
         id: area
 

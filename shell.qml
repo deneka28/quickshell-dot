@@ -11,7 +11,6 @@ import "components/notifications"
 ShellRoot {
   id: root
     Scope {
-        // TopBar { id: bar }
         Bar {}
         DockPanel { id: dockPopup }
         Overlays {}
