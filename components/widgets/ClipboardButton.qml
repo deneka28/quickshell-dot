@@ -12,10 +12,8 @@ BarWidget {
     color: "transparent"
     implicitHeight: 24
     implicitWidth: 24
-    property int tooltipText: ClipboardIo.clipHistCount
-    property list<string> cliphistData: ClipboardIo.clipHistList
-    property bool showPopup: false
-    property var icon: 0
+    property int count: ClipboardIo.clipHistCount
+    
     HyprlandFocusGrab {
         id: grab
         windows: [clipboarPopup]
@@ -27,11 +25,14 @@ BarWidget {
     BarButton {
         id: powerIcon
         anchors.centerIn: parent
-        // iconSource: Quickshell.iconPath("clipboard-outline-symbolic")
+        // iconSource: ClipboardIo.clipHistCount > 0 
+        //         ? Quickshell.iconPath("clipboard-text-outline-symbolic")
+        //         : Quickshell.iconPath("clipboard-outline-symbolic")
+
         iconSource: {
-            if (root.tooltipText === 0) {
+            if (ClipboardIo.clipHistCount === 0) {
                 Quickshell.iconPath("clipboard-outline-symbolic")
-            } else if (root.tooltipText !== 0) {
+            } else if (ClipboardIo.clipHistCount !== 0) {
                 Quickshell.iconPath("clipboard-text-outline-symbolic")
             }
         }
@@ -45,26 +46,24 @@ BarWidget {
             hoverEnabled: true
             onClicked: mouse => {
                 if (mouse.button === Qt.LeftButton) {
-                    if (root.cliphistData.length === 0 || (ClipboardIo.runningList && ClipboardIo.cliphistData !== root.tooltipText)) {
-                        ClipboardIo.runningList = true
-                        grab.active = true
+                    if (!clipboarPopup.open) {
+                        ClipboardIo.refreshList()
+                    }
+                    grab.active =! grab.active 
+
+                    if (clipboarPopup.open) {
+                        clipboarPopup.closeWithAnimation()
+                    } else {
                         clipboarPopup.show()
                     }
-                root.showPopup =! root.showPopup
-            } else if (mouse.button === Qt.RightButton) {
-                ClipboardIo.runningWipe = true
-            }
-                // grab.active = true;
-                // clipboarPopup.show();
-            }
-            onEntered: {
-                ClipboardIo.runningCount = true
-                isHovered = true
-            }
-            onExited: {
-                isHovered = false
+
+                } else if (mouse.button === Qt.RightButton) {
+                    ClipboardIo.runningWipe = true
+                    ClipboardIo.runningCount = true
+                }
             }
         }
+
         scale: area.containsMouse ? 1.1 : 1.0
 
         Behavior on scale {

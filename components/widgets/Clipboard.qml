@@ -39,7 +39,8 @@ SlidingPopup {
         border.color: "#0cc0f2"
 
         ClipboardItem {
-            items: ClipboardButton.cliphistData
+            items: ClipboardIo.clipHistList
         }
+
     }
 }
