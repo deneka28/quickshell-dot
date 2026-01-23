@@ -170,13 +170,13 @@ Item {
 
             columnWidthProvider: function(column) {
                 if (column === 0) {
-                    return 60
+                    return table.width
                 }
-                return table.width - 60 - columnSpacing
+                return table.width - columnSpacing
             }
 
             model: TableModel {
-                TableModelColumn { display: "entryId" }
+                // TableModelColumn { display: "entryId" }
                 TableModelColumn { display: "entryData" }
                 rows: [...table.clipboardEntries]
             }
@@ -188,23 +188,36 @@ Item {
                 required property int row 
                 required property int column
 
+                readonly property var currentEntry: (row < table.clipboardEntries.length) ? table.clipboardEntries[row] : null
+
                 implicitHeight: {
                     let entry = table.clipboardEntries[row]
 
-                    return (entry && entry.contentType === "image-file" && column === 1) ? 120 : 35
+                    return (entry && entry.contentType === "image-file" && column === 0) ? 120 : 35
                 }
 
                 color: dataEntryMouseArea.containsMouse ? "#45475a" : "transparent"
                 StyledButton {
                     id: deleteItem
+                    visible: column === 0 && currentEntry !== null
                     iconSize: 20
-                    iconSource: Quickshell.iconPath("paint-none")
+                    iconSource: Quickshell.iconPath("edit-delete")
+                    anchors.right: parent.right
+                    anchors.rightMargin: 5
+                    anchors.verticalCenter: parent.verticalCenter
+                    onClicked: {
+                        if (currentEntry && currentEntry.entryId) {
+                            console.log("Deleting entry:", currentEntry.entryId)
+                            ClipboardIo.deleteEntry(currentEntry.entryId)
+                        }
+                    }
+                    z: 2
                 }
                 Image {
                     visible: {
                         if (row >= table.clipboardEntries.length) return false
                         let entry = table.clipboardEntries[row]
-                        return entry && entry.contentType === "image-file" && column === 1
+                        return entry && entry.contentType === "image-file" && column === 0
                     }
                     anchors.fill: parent
                     anchors.margins: 5
@@ -237,7 +250,7 @@ Item {
                     visible: {
                         if (row >= table.clipboardEntries.length) return true
                         let entry = table.clipboardEntries[row]
-                        return !(entry && entry.contentType === "image-file" && column === 1)
+                        return !(entry && entry.contentType === "image-file" && column === 0)
                     }
                     anchors.fill: parent
                     anchors.margins: 5
@@ -245,9 +258,9 @@ Item {
                     text: display
                     elide: Text.ElideRight
                     verticalAlignment: Text.AlignVCenter
-                    horizontalAlignment: column === 0 ? Text.AlignHCenter : Text.AlignLeft
+                    horizontalAlignment: column === 1 ? Text.AlignHCenter : Text.AlignLeft
                     font.pixelSize: parent.column === 0 ? 10 : 12 
-                    font.family: "monospase"
+                    font.family: "monospace"
                 }
 
                 MouseArea {

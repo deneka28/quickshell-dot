@@ -22,7 +22,7 @@ Singleton {
     signal copy
 
     function refreshList() {
-        clipHistList = []
+        //clipHistList = []
         runningList = true
     }
 
@@ -149,17 +149,60 @@ Connections {
         let path = cleanData.replace("file://", "")
         let decodedPath = decodeURIComponent(path)
         
-        console.log("Original path:", JSON.stringify(data))  // Покажет все спецсимволы
-        console.log("Clean path:", JSON.stringify(cleanData))
         console.log("Decoded path:", decodedPath)
         
-        // Копируем файл
+        // Определяем MIME-тип по расширению
+        let mimeType = "image/png"
+        if (decodedPath.endsWith(".jpg") || decodedPath.endsWith(".jpeg")) {
+            mimeType = "image/jpeg"
+        } else if (decodedPath.endsWith(".png")) {
+            mimeType = "image/png"
+        } else if (decodedPath.endsWith(".gif")) {
+            mimeType = "image/gif"
+        } else if (decodedPath.endsWith(".webp")) {
+            mimeType = "image/webp"
+        } else if (decodedPath.endsWith(".svg")) {
+            mimeType = "image/svg+xml"
+        }
+        
+        console.log("MIME type:", mimeType)
+        
+        // Копируем И как изображение И как URI файла
+        // Это позволит вставлять в разные приложения
         clipHistCopyImage.command = ["bash", "-c", 
-            `cat "${decodedPath}" | wl-copy`
-        ]
-        clipHistCopyImage.running = true
+        `printf 'file://%s' "${decodedPath}" | wl-copy --type text/uri-list`
+            ]
+            clipHistCopyImage.running = true
+        }
     }
-}
+
+    Process {
+        id: clipHistDelete
+        running: false
+        command: []
+    
+        stderr: SplitParser {
+            onRead: data => {
+                console.log("Delete stderr:", data)
+            }
+        }
+    
+        onExited: (code, status) => {
+            console.log("Delete process exited with code:", code)
+            if (code === 0) {
+                // Обновляем список после удаления
+                root.refreshList()
+            }
+        }
+    }
+    function deleteEntry(entryId) {
+        console.log("Deleting entry:", entryId)
+        clipHistDelete.command = ["bash", "-c", 
+            `cliphist delete <<< '${entryId}'`
+        ]
+        clipHistDelete.running = true
+    }
+
 }
 
 

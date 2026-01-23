@@ -19,7 +19,7 @@ Rectangle {
 
     color: "transparent"
 
-    scale: mouseArea.containsMouse ? 1.1 : 1.0
+    scale: mouseArea.containsMouse ? 1.2 : 1.0
 
     Behavior on scale {
         NumberAnimation {
@@ -32,6 +32,7 @@ Rectangle {
 
         anchors.fill: styleButton
         hoverEnabled: true
+        cursorShape: Qt.PointingHandCursor
 
         onEntered: {
             styleButton.isHovered = true;
@@ -42,7 +43,7 @@ Rectangle {
 
         onWheel: event => {
             event.accepted = false;
-            styleButtonButton.wheel(event);
+            styleButton.wheel(event);
         }
     }
 
