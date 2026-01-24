@@ -11,6 +11,7 @@ Singleton {
 
     property list<Notif> data: []
     property list<Notif> popups: data.filter(n => n.popup && !n.tracked)
+    property list<Notif> history: data.filter(n => !n.popup || n.tracked)
 
     NotificationServer {
         id: server
@@ -38,7 +39,17 @@ Singleton {
             data.splice(i, 1);
         }
     }
+    
+    function removeFromHistory(notif) {
+        const i = data.indexOf(notif)
+        if (i >=0) {
+            data.splice(i, 1);
+        }
+    }
 
+    function clearHistory() {
+        data = data.filter(n => n.popup && !n.tracked)
+    }
 
     component Notif: QtObject {
         id: notif

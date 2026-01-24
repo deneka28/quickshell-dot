@@ -17,25 +17,30 @@ Singleton {
     property bool runningCount: true
     property int clipHistCount: 0
     property list<string> clipHistList: []
+    property var _tempList: [] // Временное хранилище
 
     signal decoded(var data)
     signal copy
 
     function refreshList() {
-        //clipHistList = []
+        clipHistList = []
         runningList = true
     }
 
     Process {
         id: clipHist 
         running: root.runningList
-        command: ["sh", "-c", "cliphist list"]
+        command: ["cliphist", "list"]
         stdout: SplitParser {
             onRead: data => {
-                root.clipHistList.push(data)
+                root._tempList.push(data)
             }
         }
-        onExited: root.runningList = false
+        onExited: {
+            root.clipHistList = root._tempList;
+            root._tempList = [];            
+            root.runningList = false
+        }
     }
     Process {
         id: clipHistWipe
@@ -55,7 +60,7 @@ Singleton {
             onRead: data => {
                 root.clipHistCount = data
                 if (Number(data) >= 500) {
-                    root.runningWipe = false
+                    root.runningWipe = true
                 }
             }
         }
@@ -188,19 +193,20 @@ Connections {
         }
     
         onExited: (code, status) => {
-            console.log("Delete process exited with code:", code)
             if (code === 0) {
+                root._tempList = [];
                 // Обновляем список после удаления
-                root.refreshList()
+                console.log("Delete process exited with code:", code)
+                //root.refreshList()
+                root.runningList = true;
             }
         }
     }
-    function deleteEntry(entryId) {
-        console.log("Deleting entry:", entryId)
-        clipHistDelete.command = ["bash", "-c", 
-            `cliphist delete <<< '${entryId}'`
-        ]
-        clipHistDelete.running = true
+    function deleteEntry(fullLine) {
+        if (!fullLine) return;
+        console.log("Deleting entry:", fullLine);
+        clipHistDelete.command = ["sh", "-c", `echo "${fullLine.replace(/"/g, '\\"')}" | cliphist delete` ];
+        clipHistDelete.running = true;
     }
 
 }

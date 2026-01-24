@@ -20,8 +20,8 @@ Scope {
         }
         color: "transparent"
 
-        // WlrLayershell.layer: WlrLayer.Overlay
-        // WlrLayershell.exclusionMode: ExclusionMode.Normal
+        WlrLayershell.layer: WlrLayer.Overlay
+        WlrLayershell.exclusionMode: ExclusionMode.Normal
 
         mask: Region {
             width: window.width
@@ -74,7 +74,14 @@ Scope {
 
             Repeater {
                 id: rep
-                model: (!Shell.flags.misc.dndEnabled && Shell.flags.misc.notificationDaemonEnabled) ? NotifServer.popups : []
+    // Используем функцию фильтрации, которая будет срабатывать при обновлении данных
+                model: {
+                    if (Shell.flags.misc.dndEnabled || !Shell.flags.misc.notificationDaemonEnabled) return [];
+        
+        // Принудительно подписываемся на изменения в синглтоне
+                    var dummy = NotifServer.data; 
+                    return NotifServer.data.filter(n => n.popup);
+                }
 
                 NotificationChild {
                     id: child
@@ -83,15 +90,6 @@ Scope {
                     width: bgRectangle.width - 40
                     x: 40
 
-                    y: {
-                        var pos = 0;
-                        for (let i = 0; i < index; i++) {
-                            var prev = rep.itemAt(i);
-                            if (prev)
-                                pos += prev.height + root.innerSpacing;
-                        }
-                        return pos - (tracked ? 0 : 20) + 20;
-                    }
                     Component.onCompleted: {
                         if (!modelData.shown)
                             modelData.shown = true;
@@ -116,8 +114,8 @@ Scope {
                             return modelData.image || modelData.appIcon;
                         }
                     }
-                    title: modelData.summary
-                    body: modelData.body
+                    title: modelData.summary || "No title"
+                    body: modelData.body || "No body"
                     // image: modelData.image || modelData.appIcon
                     image: getImage
                     rawNotif: modelData
@@ -130,6 +128,21 @@ Scope {
                                     action.invoke();
                                 }
                             }))
+        
+        // Упрощенный расчет Y для плавности
+                y: {
+                    var pos = 0;
+                    for (let i = 0; i < index; i++) {
+                        var prev = rep.itemAt(i);
+                        if (prev) pos += prev.height + root.innerSpacing;
+                    }
+            // Добавляем небольшой отступ сверху
+                    return pos + 20;
+                }
+        
+        // Анимация появления/исчезновения
+                opacity: modelData.popup ? 1 : 0
+                    Behavior on opacity { NumberAnimation { duration: 200 } }
                 }
             }
         }

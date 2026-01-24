@@ -8,6 +8,12 @@ import "../widgets"
 import qs
 
 Rectangle {
+
+
+
+
+
+
     id: root
     property bool startAnim: false
 
@@ -102,10 +108,14 @@ Rectangle {
                 Repeater {
                     model: root.buttons
                     anchors.margins: 10
-                    StyledButton {
-                        implicitHeight: 30
+                    StylButton {
+                        implicitHeight: 20
                         text: modelData.label
                         onClicked: modelData.onClick()
+                        color: Config.colors.controlscolor
+                        fontColor: Config.colors.fontcolor
+                        fontPixelSize: 12 
+                        radius: 4
                     }
                 }
             }
@@ -114,23 +124,19 @@ Rectangle {
 
     MouseArea {
         id: mouseHandler
-
         anchors.fill: parent
-        hoverEnabled: true
-        visible: root.buttons.length === 0 || root.buttons.length === 1
-        cursorShape: Qt.PointingHandCursor
         onClicked: {
-            if (root.buttons.length === 1 && root.buttons[0].onClick) {
-                root.buttons[0].onClick();
-                root.rawNotif?.notificatio.dismiss();
-            } else if (root.buttons.length === 0) {
-                console.log("[Notification] Dismissed a notification with no action.");
-                root.rawNotif.notification.tracked = false;
+            if (root.rawNotif && root.rawNotif.notification) {
+            // Если есть кнопки, вызываем первую (default action)
+                if (root.buttons.length >= 1) {
+                    root.buttons[0].onClick();
+                }
+            
+            // Важно: помечаем, что это больше не поп-ап, чтобы он исчез с экрана
                 root.rawNotif.popup = false;
-                root.rawNotif?.notification.dismiss();
-            } else {
-                console.log("[Notification] Dismissed a notification with multiple actions.");
-                root.rawNotif?.notification.dismiss();
+            
+            // Закрываем уведомление на уровне сервера (DBus)
+                root.rawNotif.notification.dismiss();
             }
         }
     }

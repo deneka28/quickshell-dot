@@ -14,12 +14,16 @@ Rectangle {
   border.color: "#454545"
   
   property string text
+  property real fontPixelSize
+  property real fontPointSize
+  property color fontColor
   signal clicked
 
   Text {
     id: label
-    font.pointSize: 12
-    color: Config.colors.fontcolor 
+    font.pointSize: root.fontPointSize
+    font.pixelSize: root.fontPixelSize
+    color: root.fontColor
     text: root.text
     horizontalAlignment: Text.AlignHCenter
     verticalAlignment: Text.AlignVCenter

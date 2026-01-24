@@ -8,11 +8,10 @@ import Quickshell
 import "../io"
 import "../shared"
 
-
 Item {
     id: root
-    property list<var> items
-    property list<string> cliphistData: ClipboardIo.clipHistList
+    property list<var> items: ClipboardIo.clipHistList
+    //property list<string> cliphistData: ClipboardIo.clipHistList
     implicitHeight: parent.height
     implicitWidth: parent.width
     visible: true
@@ -123,7 +122,6 @@ Item {
                 return data.length > 100 ? data.substring(0, 100) + "..." : data
             }
 
-
             property list<var> clipboardEntries: {
                 let entries = []
                 let searchText = searchInput.text.toLowerCase()
@@ -206,9 +204,9 @@ Item {
                     anchors.rightMargin: 5
                     anchors.verticalCenter: parent.verticalCenter
                     onClicked: {
-                        if (currentEntry && currentEntry.entryId) {
-                            console.log("Deleting entry:", currentEntry.entryId)
-                            ClipboardIo.deleteEntry(currentEntry.entryId)
+                        let originalLine = root.items[row]
+                        if (originalLine) {
+                            ClipboardIo.deleteEntry(originalLine)
                         }
                     }
                     z: 2
@@ -243,8 +241,6 @@ Item {
                         radius: 3 
                     }
                 }
-
-
                 
                 Text {
                     visible: {
@@ -274,10 +270,7 @@ Item {
                         if (entry && entry.entryId) {
                             console.log("Copying: ", entry.entryId, "type: ", entry.contentType)
                             console.log("Image path: ", entry.imagePath)
-                            // ClipboardIo.decodedId = entry.entryId
-                            // ClipboardIo.runningCopy = true
                             ClipboardIo.copyEntry(entry.entryId, entry.contentType || "text")
-                            
                         } else {
                             console.log("No entry found for row:", row)
                         }

@@ -12,7 +12,6 @@ BarWidget {
     color: "transparent"
     implicitHeight: 24
     implicitWidth: 24
-    property int count: ClipboardIo.clipHistCount
     
     HyprlandFocusGrab {
         id: grab
@@ -25,17 +24,9 @@ BarWidget {
     BarButton {
         id: powerIcon
         anchors.centerIn: parent
-        // iconSource: ClipboardIo.clipHistCount > 0 
-        //         ? Quickshell.iconPath("clipboard-text-outline-symbolic")
-        //         : Quickshell.iconPath("clipboard-outline-symbolic")
-
-        iconSource: {
-            if (ClipboardIo.clipHistCount === 0) {
-                Quickshell.iconPath("clipboard-outline-symbolic")
-            } else if (ClipboardIo.clipHistCount !== 0) {
-                Quickshell.iconPath("clipboard-text-outline-symbolic")
-            }
-        }
+        iconSource: ClipboardIo.clipHistCount > 0 
+                ? Quickshell.iconPath("clipboard-text-outline-symbolic")
+                : Quickshell.iconPath("clipboard-outline-symbolic")
 
         MouseArea {
             id: area

@@ -23,13 +23,16 @@ Rectangle {
     implicitHeight: parent.height
     color: "transparent"
 
+    Item {
+        anchors.fill: parent
     ColumnLayout {
         id: layout
+        anchors.horizontalCenter: parent.horizontalCenter
 
         Rectangle {
             id: title
             implicitHeight: 40
-            implicitWidth: 200
+            implicitWidth: root.width - 30
             Layout.topMargin: 20
             Layout.alignment: Qt.AlignCenter
             color: "transparent"
@@ -40,6 +43,7 @@ Rectangle {
                 text: root.selectedDate.toLocaleDateString(Qt.locale(), "ddd, yyyy.MM.dd")
                 font.pixelSize: 30
                 color: Config.colors.fontcolor
+                horizontalAlignment: Text.AlignHCenter
             }
         }
 
@@ -157,7 +161,7 @@ Rectangle {
             rows: 6
             columnSpacing: 4
             rowSpacing: 4
-
+            Layout.alignment: Qt.AlignHCenter
             Repeater {
                 model: 42
 
@@ -227,6 +231,8 @@ Rectangle {
             }
         }
     }
+    }
+
 
     function set_month(month) {
         var days_in = new Date(year, month + 1, 0).getDate();

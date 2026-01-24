@@ -40,16 +40,15 @@ SlidingPopup {
 
         Row {
             anchors.fill: parent
-            spacing: 15
-            Rectangle {
+            spacing: 1
+             Rectangle {
                 id: blue
                 color: "transparent"
-                //border.width: 1
                 implicitWidth: parent.width / 2
                 implicitHeight: parent.height
 
-                NotifList {
-
+                NotificationHistory {
+                    anchors.fill: blue
                 }
 
             }
@@ -61,9 +60,19 @@ SlidingPopup {
                 implicitHeight: parent.height - 30
                 anchors.verticalCenter: parent.verticalCenter
             }
-            DatePicker {
-                id: datePicker
+            Rectangle {
+                id: picker
+                color: "transparent"
+                implicitWidth: parent.width / 2
+                implicitHeight: parent.height
+                DatePicker {
+                    id: datePicker
+                    anchors.horizontalCenter: picker.horizontalCenter
+                }
+
             }
+
+
         }
     }
 }

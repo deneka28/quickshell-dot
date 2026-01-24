@@ -4,6 +4,8 @@ import Quickshell
 import Quickshell.Io
 import Quickshell.Widgets
 import "../settings"
+import "../services"
+import qs
 
 Rectangle {
   id: root
@@ -25,9 +27,11 @@ Rectangle {
   }
   Rectangle {
     id: iconBg
-    width: iconStatus.width
-    height: iconStatus.height
+    width: iconStatus.width + 8 
+    height: iconStatus.height + 8
     color: root.color
+    // border.width: 1
+    anchors.verticalCenter: parent.verticalCenter
 
     MouseArea {
       id: mousArea
@@ -39,6 +43,15 @@ Rectangle {
       anchors.centerIn: parent
       source: root.themestatusicon
       implicitSize: 20
+    }
+    Text {
+        visible: NotifServer.history.length > 0
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+        text: NotifServer.history.length
+        color: Config.colors.red900
+        font.pixelSize: 10
+        font.family: "Ubuntu"
     }
     
   }

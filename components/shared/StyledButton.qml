@@ -6,9 +6,12 @@ import qs
 Rectangle {
     id: styleButton
 
-    required property var iconSource
+    property var iconSource
     property bool isHovered: false
-    required property var iconSize
+    property var iconSize
+    property string text
+    property int fontSize
+
     signal clicked
     signal hovered(bool hovered)
     signal wheel(event: WheelEvent)
@@ -53,5 +56,9 @@ Rectangle {
         anchors.margins: 3
         anchors.verticalCenter: parent.verticalCenter
         source: styleButton.iconSource
+    }
+    Text {
+        font.pixelSize: styleButton.fontSize
+        text: styleButton.text
     }
 }
