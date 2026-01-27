@@ -119,6 +119,7 @@ Item {
                     BarItem {
                         KbLayout {}
                     }
+                    ScreenshotButton{}
                     ClipboardButton {}
                     BarItem {
                         SysTray {

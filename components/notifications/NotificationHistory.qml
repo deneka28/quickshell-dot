@@ -69,7 +69,7 @@ Item {
                     id: historyList
 
                     spacing: 10
-                    model: NotifServer.history
+                    model: NotifServer.history.slice().reverse()
 
                     delegate: Rectangle {
                         width: historyList.width
