@@ -11,7 +11,6 @@ import "../shared"
 Item {
     id: root
     property list<var> items: ClipboardIo.clipHistList
-    //property list<string> cliphistData: ClipboardIo.clipHistList
     implicitHeight: parent.height
     implicitWidth: parent.width
     visible: true
@@ -30,14 +29,19 @@ Item {
         anchors.centerIn: parent
         radius: 5
         clip: true 
-
-        Rectangle {
-            id: searchBar
+        Item {
+            
             width: parent.width - 10
-            height: 40
+            height: 30
             anchors.top: rootrect.top
             anchors.topMargin: 10
             anchors.horizontalCenter: parent.horizontalCenter
+
+        Rectangle {
+            id: searchBar
+            width: parent.width - clearHistory.width
+            height: parent.height
+            anchors.top: rootrect.top
             color: "#313244"
             radius: 5
             border.width: searchInput.activeFocus ? 1 : 0
@@ -45,7 +49,7 @@ Item {
 
             TextField {
                 id: searchInput
-                anchors.fill: parent 
+                anchors.fill: searchBar
                 anchors.margins: 5
                 placeholderText: "Поиск..."
                 color: "#cdd6f4"
@@ -56,6 +60,21 @@ Item {
                 Component.onCompleted: forceActiveFocus()
             }
         }
+            StyledButton {
+                id: clearHistory
+                iconSource: Quickshell.iconPath("edit-delete")
+                iconSize: 26
+                anchors.left: searchBar.right
+                anchors.verticalCenter: searchBar.verticalCenter
+                anchors.leftMargin: 2
+                onClicked: {
+                    ClipboardIo.runningWipe = true
+                    ClipboardIo.runningCount = true
+                }
+
+            }
+        }
+
                 // Сообщение если список пуст
         Text {
             visible: table.clipboardEntries.length === 0 && searchInput.text === ""
@@ -174,7 +193,6 @@ Item {
             }
 
             model: TableModel {
-                // TableModelColumn { display: "entryId" }
                 TableModelColumn { display: "entryData" }
                 rows: [...table.clipboardEntries]
             }

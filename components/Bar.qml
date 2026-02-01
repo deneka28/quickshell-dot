@@ -11,7 +11,7 @@ import "shared"
 import "workspaces"
 import "battery"
 import "widgets"
-
+import "devices"
 
 Item {
     id: root
@@ -110,7 +110,7 @@ Item {
                 }
                 RowLayout {
                     id: rightLayoutRoot
-
+                    // spacing: 2
                     anchors {
                         right: parent.right
                         rightMargin: 10
@@ -119,8 +119,21 @@ Item {
                     BarItem {
                         KbLayout {}
                     }
-                    ScreenshotButton{}
-                    ClipboardButton {}
+                    DeviceButton {}
+                    BarItem {
+                        ScreenshotButton{
+                            anchors.verticalCenter: parent.verticalCenter
+                            anchors.rightMargin: 2
+                            anchors.leftMargin: 2
+                        }
+                    }
+                    BarItem {
+                        ClipboardButton {
+                            anchors.verticalCenter: parent.verticalCenter
+                            anchors.leftMargin: 2
+                            anchors.rightMargin: 2
+                        }
+                    }
                     BarItem {
                         SysTray {
                             anchors.verticalCenter: parent.verticalCenter
