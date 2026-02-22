@@ -147,8 +147,8 @@ Item {
 
                                 // Кнопка удаления
                                 StyledButton {
-                                    Layout.preferredWidth: 30
-                                    Layout.preferredHeight: 30
+                                    Layout.preferredWidth: 24
+                                    Layout.preferredHeight: 24
                                     iconSize: 16
                                     iconSource: Quickshell.iconPath("edit-delete")
                                     onClicked: NotifServer.removeFromHistory(modelData)

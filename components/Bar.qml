@@ -38,11 +38,11 @@ Item {
             layer.effect: MultiEffect {
                 shadowEnabled: true
                 // The vertical offset makes the shadow slightly more prominent
-                shadowVerticalOffset: 8
+                shadowVerticalOffset: 10
                 shadowHorizontalOffset: -20
-                shadowBlur: 1
-                blurMultiplier: 1
-                shadowColor: "#F0000000"
+                shadowBlur: 0.99
+                blurMultiplier: 0.75
+                shadowColor: "#f0000000"
             }
         }
     }
@@ -86,7 +86,6 @@ Item {
                     BarItem {
                         CurrentWindow {
                             anchors {
-                                // centerIn: parent
                                 verticalCenter: parent.verticalCenter
                             }
                         }
@@ -110,7 +109,6 @@ Item {
                 }
                 RowLayout {
                     id: rightLayoutRoot
-                    // spacing: 2
                     anchors {
                         right: parent.right
                         rightMargin: 10
@@ -119,9 +117,10 @@ Item {
                     BarItem {
                         KbLayout {}
                     }
+                    // WallpaperButton {}
                     DeviceButton {}
                     BarItem {
-                        ScreenshotButton{
+                        ScreenshotButton {
                             anchors.verticalCenter: parent.verticalCenter
                             anchors.rightMargin: 2
                             anchors.leftMargin: 2

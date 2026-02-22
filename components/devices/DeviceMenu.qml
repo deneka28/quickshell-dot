@@ -13,7 +13,7 @@ SlidingPopup {
     property bool open: false
 
     direction: "down"
-    implicitWidth: 320
+    implicitWidth: 370
     implicitHeight: Math.min(deviceList.contentHeight + 70, 500)
     visible: open
     color: "transparent"
@@ -105,11 +105,12 @@ SlidingPopup {
 
                             // Иконка устройства
                             Text {
-                                text: modelData.isMounted ? "💾" : "🔌"
-                                font.pixelSize: 24
+                                text: modelData.isMounted ? "" : "󰚥"
+                                font.pixelSize: 40
                                 Layout.preferredWidth: 32
                                 Layout.preferredHeight: 32
                                 verticalAlignment: Text.AlignVCenter
+                                color: "#fafafa"
                             }
 
                             // Информация
@@ -168,8 +169,8 @@ SlidingPopup {
                             // Кнопка монтирования / размонтирования
                             StylButton {
                                 Layout.preferredWidth: 90
-                                Layout.preferredHeight: 32
-                                text: modelData.isMounted ? "Отключить" : "Монтировать"
+                                Layout.preferredHeight: 26
+                                text: modelData.isMounted ? "unplug" : "plug"
                                 onClicked: {
                                     if (modelData.isMounted)
                                         DeviceIo.umount(modelData.device);

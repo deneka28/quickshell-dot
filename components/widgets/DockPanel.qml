@@ -110,6 +110,10 @@ ColumnLayout {
                 Layout.alignment: Qt.AlignHCenter
                 color: '#414141'
             }
+            ButtonPanel {
+                id: button
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
             RowLayout {
 
                 ColumnLayout {
