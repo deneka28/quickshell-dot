@@ -38,7 +38,7 @@ Singleton {
         }
         onExited: {
             root.clipHistList = root._tempList;
-            root._tempList = [];            
+            root._tempList = [];
             root.runningList = false
         }
     }
@@ -210,8 +210,4 @@ Connections {
     }
 
 }
-
-
-
-
 

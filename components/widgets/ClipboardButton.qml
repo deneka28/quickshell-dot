@@ -24,7 +24,7 @@ BarWidget {
     BarButton {
         id: powerIcon
         anchors.centerIn: parent
-        iconSource: ClipboardIo.clipHistCount > 0 
+        iconSource: ClipboardIo.clipHistCount > 0
                 ? Quickshell.iconPath("clipboard-text-outline-symbolic")
                 : Quickshell.iconPath("clipboard-outline-symbolic")
 
@@ -40,7 +40,7 @@ BarWidget {
                     if (!clipboarPopup.open) {
                         ClipboardIo.refreshList()
                     }
-                    grab.active =! grab.active 
+                    grab.active =! grab.active
 
                     if (clipboarPopup.open) {
                         clipboarPopup.closeWithAnimation()

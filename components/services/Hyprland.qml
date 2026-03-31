@@ -7,12 +7,6 @@ import Quickshell.Io
 import Quickshell.Hyprland
 import Quickshell.Wayland
 
-/**
- * Unified Hyprland data provider
- * Combines reactive Quickshell.Hyprland data + raw hyprctl JSON updates.
- * combined version of hyprland services from github.com/yannpelletier/twinshell and github.com/end-4/dots-hyprland
- */
-
 Singleton {
     id: root
 

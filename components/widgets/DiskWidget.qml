@@ -1,7 +1,8 @@
 import "../services"
 import "../shared"
 import QtQuick
-import QtQuick.Layouts
+import Quickshell
+import Quickshell.Widgets
 import "root:/"
 
 Rectangle {
@@ -19,80 +20,63 @@ Rectangle {
     radius: 6
     color: "#454545"
 
-    RowLayout {
-        spacing: 1
-        Layout.fillWidth: true
-        Layout.fillHeight: true
+    CircleBat {
+        id: home
 
-        ColumnLayout {
-            id: diskL
+        size: 150
+        colorCircle: "#3058f3"
+        colorBackground: Config.colors.bgcolor
+        showBackground: false
+        arcBegin: 0
+        arcOffset: 220
+        arcEnd: (280 / root.totalHome) * info.storHomeUsed
+        lineWidth: 8
+        anchors.centerIn: parent
 
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-            spacing: 2
+        Text {
+            id: spaceHome
 
-            CustomProgress {
-                id: useHomeProg
-
-                progHeight: 158
-                progWidth: 6
-                progRadius: 10
-                bgColor: Config.colors.controlscolor
-                fgColor: Config.colors.mainColor2
-                fgWidth: progWidth
-                value: (useHomeProg.height / root.totalHome) * info.storHomeUsed
-                anchors.bottom: useHome.top
-                Layout.leftMargin: (root.width / 2) / 2
-                Layout.topMargin: 10
-            }
-
-            Text {
-                id: useHome
-
-                text: "/home: " + root.useHome + "/" + root.freeHome + "G"
-                font.family: Config.family
-                font.pixelSize: 10
-                color: Config.colors.fontcolor
-                topPadding: 5
-                leftPadding: 5
-            }
-
+            text: root.useHome + "/" + root.totalHome
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.bottom: parent.bottom
+            font.family: Config.family
+            font.pixelSize: 14
+            color: Config.colors.fontcolor
         }
 
-        ColumnLayout {
-            id: disk
+        IconImage {
+            id: icon
 
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-            spacing: 2
+            implicitWidth: 64
+            implicitHeight: 64
+            anchors.centerIn: parent
+            source: Quickshell.iconPath("am-harddisk-symbolic")
+        }
 
-            CustomProgress {
-                id: useRootProg
+    }
 
-                progHeight: 158
-                progWidth: 6
-                progRadius: 10
-                bgColor: Config.colors.controlscolor
-                fgColor: Config.colors.mainColor2
-                fgWidth: progWidth
-                value: (useRootProg.height / root.totalRoot) * info.storRootUsed
-                anchors.bottom: useHome.top
-                Layout.leftMargin: (root.width / 2) / 2 - this.width
-                Layout.topMargin: 10
-            }
+    CircleBat {
+        id: rootSpace
 
-            Text {
-                id: useRoot
+        size: 125
+        colorCircle: "#f33058"
+        colorBackground: Config.colors.bgcolor
+        showBackground: false
+        arcBegin: 0
+        arcOffset: 220
+        arcEnd: (280 / root.totalRoot) * info.storRootUsed
+        lineWidth: 8
+        anchors.centerIn: parent
 
-                width: root.width / 2
-                text: "/: " + root.useRoot + "/" + root.freeRoot + "G"
-                font.family: Config.family
-                font.pixelSize: 10
-                color: Config.colors.fontcolor
-                topPadding: 5
-                leftPadding: 5
-            }
+        Text {
+            id: spaceRoot
 
+            text: root.useRoot + "/" + root.totalRoot
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.bottom: parent.bottom
+            font.family: Config.family
+            font.pixelSize: 14
+            color: Config.colors.fontcolor
         }
 
     }

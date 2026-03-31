@@ -10,7 +10,7 @@ import "../services"
 PopupPanel {
     id: slidingPopup
 
-    direction: "down" // left, right, up, down
+    direction: "left"//"down" // left, right, up, down
     anchors {
         top: true
         left: false
@@ -21,7 +21,7 @@ PopupPanel {
         right: 4
     }
     implicitWidth: 400
-    implicitHeight: 400
+    implicitHeight: 420
     visible: open
     property bool open: false
     color: "transparent"
@@ -47,6 +47,7 @@ ColumnLayout {
                 Rectangle {
                     id: profPic
                     Layout.leftMargin: 10
+                    Layout.topMargin: 10
                     implicitHeight: 100
                     implicitWidth: 100
                     border.width: 1
@@ -115,10 +116,10 @@ ColumnLayout {
                 anchors.horizontalCenter: parent.horizontalCenter
             }
             RowLayout {
-
+                spacing: 1
                 ColumnLayout {
                     id: sysInfo
-                    spacing: 5
+                    spacing: 0
                 RowLayout {
                     id: bright
                     Layout.fillWidth: true
@@ -139,23 +140,22 @@ ColumnLayout {
                     Layout.fillWidth: true
 
                     CpuWidget {
-                        id: cpu 
-                        Layout.topMargin: 10 
-                        Layout.leftMargin: 10 
+                        id: cpu
+                        Layout.topMargin: 10
+                        Layout.leftMargin: 10
                     }
                     MemWidget {
-                        id: mem 
-                        Layout.topMargin: 10 
-                        Layout.leftMargin: 10 
+                        id: mem
+                        Layout.topMargin: 10
+                        Layout.leftMargin: 10
                     }
                 }
             }
-            DiskWidget {
-                id: disk 
-                Layout.topMargin: 10 
-                Layout.leftMargin: 10 
-                // Layout.rightMargin: 10 
-            }
+                DiskWidget {
+                    id: disk
+                    Layout.topMargin: 10
+                    Layout.leftMargin: 10
+                }
             }
 
         }

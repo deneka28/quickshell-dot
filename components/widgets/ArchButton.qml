@@ -62,11 +62,14 @@ BarWidget {
         icon: Quickshell.iconPath("system-reboot-symbolic")
     }
 
-    BarButton {
+    CustomButton {
         id: powerIcon
 
+        implicitWidth: 26
+        implicitHeight: 26
         anchors.centerIn: parent
-        iconSource: Quickshell.iconPath("start-here-symbolic")
+        //iconSource: Quickshell.iconPath("start-here-symbolic")
+        iconSource: "../../assets/arch.svg"
         scale: area.containsMouse ? 1.2 : 1
 
         MouseArea {

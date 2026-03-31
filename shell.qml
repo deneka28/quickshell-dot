@@ -5,7 +5,7 @@ import Quickshell
 
 import "components"
 import "components/widgets"
-import "components/overlays"
+// import "components/overlays"
 import "components/notifications"
 
 ShellRoot {
@@ -13,7 +13,7 @@ ShellRoot {
     Scope {
         Bar {}
         DockPanel { id: dockPopup }
-        Overlays {}
+        // Overlays {}
         Notification {}
     }
 }

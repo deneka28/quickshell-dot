@@ -126,5 +126,4 @@ Item {
         root.osName = nameLine.split("=")[1].slice(1, -1);
         }
     }
-
 }

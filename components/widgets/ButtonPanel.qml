@@ -11,10 +11,12 @@ Rectangle {
     implicitWidth: parent.width - 30
 
     Item {
-        implicitWidth: parent.width
+        implicitWidth: parent.width - 20
         implicitHeight: parent.height
         anchors.leftMargin: 20
         anchors.rightMargin: 20
+        // border.width: 2
+        anchors.centerIn: parent
 
         WallpaperButton {
             // anchors.horizontalCenter: parent.horizontalCenter

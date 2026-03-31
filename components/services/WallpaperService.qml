@@ -30,7 +30,7 @@ Singleton {
 
     function setWallpaperFile(path) {
         root.currentWallpaper = path;
-        setWallpaperProcess.command = ["swww", "img", path, "--transition-type", "center", "--transition-fps", "60", "--transition-duration", "2"];
+        setWallpaperProcess.command = ["awww", "img", path, "--transition-type", "center", "--transition-fps", "60", "--transition-duration", "2"];
         console.log("Setting wallpaper:", path);
         setWallpaperProcess.running = true;
         // Сброс таймера при прямой установке файла
@@ -54,14 +54,14 @@ Singleton {
         id: checkDaemon
 
         running: true
-        command: ["pgrep", "-x", "swww-daemon"]
+        command: ["pgrep", "-x", "awww-daemon"]
         onExited: (code, status) => {
             if (code !== 0) {
                 // Daemon не запущен, запускаем
-                console.log("swww-daemon not running, starting...");
+                console.log("awww-daemon not running, starting...");
                 swwwDaemon.running = true;
             } else {
-                console.log("swww-daemon already running");
+                console.log("awww-daemon already running");
                 // Сразу устанавливаем первый обои
                 initTimer.start();
             }
@@ -73,14 +73,14 @@ Singleton {
         id: swwwDaemon
 
         running: false
-        command: ["swww-daemon"]
+        command: ["awww-daemon"]
         onStarted: {
-            console.log("swww-daemon started");
+            console.log("awww-daemon started");
             // Даём время на инициализацию
             initTimer.start();
         }
         onExited: (code, status) => {
-            console.log("swww-daemon exited:", code);
+            console.log("awww-daemon exited:", code);
         }
     }
 

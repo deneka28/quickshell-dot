@@ -1,13 +1,10 @@
 pragma ComponentBehavior: Bound
 import Quickshell
 import QtQuick
-import Quickshell.Hyprland
-
 
 import "root:/"
 import "../shared"
 import "../calendar"
-import "../widgets"
 import "../notifications"
 
 SlidingPopup {
@@ -41,17 +38,17 @@ SlidingPopup {
         Row {
             anchors.fill: parent
             spacing: 1
-             Rectangle {
-                id: blue
-                color: "transparent"
-                implicitWidth: parent.width / 2
-                implicitHeight: parent.height
+                Rectangle {
+                    id: blue
+                    color: "transparent"
+                    implicitWidth: parent.width / 2
+                    implicitHeight: parent.height
 
-                NotificationHistory {
-                    anchors.fill: blue
+                    NotificationHistory {
+                        anchors.fill: blue
+                    }
+
                 }
-
-            }
             Rectangle {
                 id: spaser
                 color: "#2196F3"
@@ -69,10 +66,7 @@ SlidingPopup {
                     id: datePicker
                     anchors.horizontalCenter: picker.horizontalCenter
                 }
-
             }
-
-
         }
     }
 }

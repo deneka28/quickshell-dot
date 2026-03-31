@@ -2,6 +2,16 @@ import QtQuick
 import Quickshell.Io
 
 Item {
+    // Timer {
+    //     interval: 2000
+    //     running: true
+    //     repeat: true
+    //     onTriggered: {
+    //         diskProc.running = true;
+    //         diskP.running = true;
+    //     }
+    // }
+
     id: root
 
     property real storRootUsed
@@ -13,39 +23,38 @@ Item {
 
     Process {
         id: diskProc
+
         command: ["sh", "-c", "df -h /"]
+        Component.onCompleted: running = true
+
         stdout: SplitParser {
-            onRead: data => {
-                const parts = data.trim().split(/\s+/)
+            onRead: (data) => {
+                const parts = data.trim().split(/\s+/);
                 if (parts.length >= 3) {
-                    root.storRootFree = parseInt(parts[3])
-                    root.storRootUsed = parseInt(parts[2])
+                    root.storRootFree = parseInt(parts[3]);
+                    root.storRootUsed = parseInt(parts[2]);
                 }
             }
         }
-        Component.onCompleted: running = true
+
     }
+
     Process {
         id: diskP
+
         command: ["sh", "-c", "df -h /home"]
+        Component.onCompleted: running = true
+
         stdout: SplitParser {
-            onRead: data => {
-                const parts = data.trim().split(/\s+/)
+            onRead: (data) => {
+                const parts = data.trim().split(/\s+/);
                 if (parts.length >= 3) {
-                    root.storHomeFree = parseInt(parts[3])
-                    root.storHomeUsed = parseInt(parts[2])
+                    root.storHomeFree = parseInt(parts[3]);
+                    root.storHomeUsed = parseInt(parts[2]);
                 }
             }
         }
-        Component.onCompleted: running = true
+
     }
-    Timer {
-        interval: 2000
-        running: true
-        repeat: true
-        onTriggered: {
-            diskProc.running = true
-            diskP.running = true
-        }
-    }
+
 }

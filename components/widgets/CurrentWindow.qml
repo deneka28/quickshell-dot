@@ -11,7 +11,7 @@ Rectangle {
         anchors.leftMargin: 4
         anchors.rightMargin: 4
         text: ToplevelManager.activeToplevel?.activated ? ToplevelManager.activeToplevel.title : ""
-        color: palette.active.text
+        color: Config.colors.fontcolor
         font.pixelSize: 16
         font.family: Config.font
         anchors.verticalCenter: root.verticalCenter

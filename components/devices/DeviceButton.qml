@@ -15,23 +15,23 @@ BarWidget {
     visible: DeviceIo.devices.length > 0
 
     // Уведомления от DeviceIo
-Connections {
-    target: DeviceIo
+    Connections {
+        target: DeviceIo
     
-    function onMounted(device) {
-        let name = DeviceIo.getDeviceName(device)
-        NotifServer.notify("💾 Монтирование", name + " успешно смонтирован", 3000)
-    }
+        function onMounted(device) {
+            let name = DeviceIo.getDeviceName(device)
+            NotifServer.notify("💾 Монтирование", name + " успешно смонтирован", 3000)
+        }
     
-    function onUnmounted(device) {
-        let name = DeviceIo.getDeviceName(device)
-        NotifServer.notify("🔌 Размонтирование", name + " успешно размонтирован", 3000)
-    }
+        function onUnmounted(device) {
+            let name = DeviceIo.getDeviceName(device)
+            NotifServer.notify("🔌 Размонтирование", name + " успешно размонтирован", 3000)
+        }
     
-    function onMountError(error) {
-        NotifServer.notify("⚠️ Ошибка", error, 5000)
+        function onMountError(error) {
+            NotifServer.notify("⚠️ Ошибка", error, 5000)
+        }
     }
-}
 
     HyprlandFocusGrab {
         id: grab
