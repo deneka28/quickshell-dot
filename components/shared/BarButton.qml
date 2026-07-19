@@ -16,7 +16,7 @@ Rectangle {
     implicitWidth: 30
     radius: 5
     color: "transparent"
-    scale: mouseArea.containsMouse ? 1.1 : 1
+    scale: mouseArea.containsMouse ? 1.1 : 0.5
 
     MouseArea {
         id: mouseArea
@@ -40,7 +40,7 @@ Rectangle {
         id: icons
 
         anchors.fill: parent
-        anchors.margins: 2
+        anchors.margins: 5
         anchors.verticalCenter: parent.verticalCenter
         source: barButton.iconSource
     }

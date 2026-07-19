@@ -142,7 +142,7 @@ SlidingPopup {
 
             StylButton {
                 width: parent.width
-                text: "📐 Выбрать область"
+                text: " Выбрать область"
                 onClicked: {
                     screenshotPopup.closeWithAnimation();
                     screenshotArea.running = true;
@@ -151,7 +151,7 @@ SlidingPopup {
 
             StylButton {
                 width: parent.width
-                text: "🪟 Текущее окно"
+                text: " Текущее окно"
                 onClicked: {
                     screenshotPopup.closeWithAnimation();
                     windowTimer.start();
@@ -160,7 +160,7 @@ SlidingPopup {
 
             StylButton {
                 width: parent.width
-                text: "🖥️ Весь экран"
+                text: " Весь экран"
                 onClicked: {
                     screenshotFull.running = true;
                     screenshotPopup.closeWithAnimation();
@@ -175,7 +175,7 @@ SlidingPopup {
 
             StylButton {
                 width: parent.width
-                text: "💾 Сохранить область"
+                text: " Сохранить область"
                 onClicked: {
                     screenshotPopup.closeWithAnimation();
                     areaSaveTimer.start();
@@ -184,7 +184,7 @@ SlidingPopup {
 
             StylButton {
                 width: parent.width
-                text: "💾 Сохранить экран"
+                text: " Сохранить экран"
                 onClicked: {
                     screenshotPopup.closeWithAnimation();
                     windowSaveTimer.start();

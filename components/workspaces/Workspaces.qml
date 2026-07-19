@@ -9,7 +9,6 @@ Rectangle {
     width: 190
 
     color: "transparent"
-
     WorkspaceIPC {
         id: workspaces
     }

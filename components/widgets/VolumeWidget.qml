@@ -15,7 +15,7 @@ CircleBat {
     showBackground: false
     arcBegin: 0
     arcOffset: 220
-    arcEnd: 280 * pipew.node.audio.volume
+    arcEnd: 280 * Math.min(1, pipew.node.audio.volume)
     lineWidth: 4
 
     PipewireIO {
@@ -25,14 +25,21 @@ CircleBat {
     }
 
     IconImage {
-        // anchors.bottomMargin: 6
-
         id: icon
 
         implicitHeight: 36
         implicitWidth: 36
         anchors.centerIn: parent
-        source: Quickshell.iconPath("audio-volume-high-symbolic")
+        source: {
+            const v = pipew.node.audio.volume;
+            if (pipew.node.audio.muted)
+                return Quickshell.iconPath("audio-volume-muted-symbolic");
+            if (v >= 0.66)
+                return Quickshell.iconPath("audio-volume-high-symbolic");
+            if (v >= 0.33)
+                return Quickshell.iconPath("audio-volume-medium-symbolic");
+            return Quickshell.iconPath("audio-volume-low-symbolic");
+        }
     }
 
     Text {
@@ -50,10 +57,12 @@ CircleBat {
         anchors.fill: parent
         hoverEnabled: true
         scrollGestureEnabled: true
-        onWheel: (event) => {
+        onClicked: pipew.node.audio.muted = !pipew.node.audio.muted
+        onWheel: event => {
             event.accepted = true;
-            pipew.node.audio.volume += (event.angleDelta.y / 120) * 0.05;
+            const delta = (event.angleDelta.y / 120) * 0.05;
+            // pipew.node.audio.volume += (event.angleDelta.y / 120) * 0.05;
+            pipew.node.audio.volume = Math.max(0, Math.min(1, pipew.node.audio.volume + delta));
         }
     }
-
 }

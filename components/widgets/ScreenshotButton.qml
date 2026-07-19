@@ -10,8 +10,8 @@ import "../screenshot"
 BarWidget {
     id: root
     color: "transparent"
-    implicitHeight: 24
-    implicitWidth: 24
+    implicitHeight: 20
+    implicitWidth: 20
 
     property alias focusGrab: grab
     

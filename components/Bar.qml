@@ -12,6 +12,7 @@ import "workspaces"
 import "battery"
 import "widgets"
 import "devices"
+import "bluetooth"
 
 Item {
     id: root
@@ -20,7 +21,7 @@ Item {
 
     WlrLayershell {
         id: barShadow
-        implicitHeight: bar.height + 70
+        implicitHeight: bar.height + 50
         color: "transparent"
         layer: WlrLayer.Bottom
         exclusionMode: ExclusionMode.Ignore
@@ -57,93 +58,100 @@ Item {
             left: true
             right: true
         }
-            margins {
-                top: 4
-                right: 0
-                left: 0
-            }
+        margins {
+            top: 4
+            right: 0
+            left: 0
+        }
 
         Rectangle {
             id: barContent
             anchors.fill: parent
             color: root.color
             RowLayout {
-                    id: leftLayoutRoot
-
-                    anchors {
-                        left: parent.left
-                        leftMargin: 5
-                        verticalCenter: parent.verticalCenter
+                id: leftLayoutRoot
+                spacing: 4
+                anchors {
+                    left: parent.left
+                    leftMargin: 5
+                    verticalCenter: parent.verticalCenter
+                }
+                ArchButton {
+                    id: archButton
+                }
+                BarItem {
+                    Workspaces {
+                        anchors.verticalCenter: parent.verticalCenter
                     }
-                    ArchButton {
-                        id: archButton
-                    }
-                    BarItem {
-                        Workspaces {
-                            anchors.verticalCenter: parent.verticalCenter
-                        }
-                    }
-                    BarItem {
-                        CurrentWindow {
-                            anchors {
-                                verticalCenter: parent.verticalCenter
-                            }
+                }
+                BarItem {
+                    CurrentWindow {
+                        anchors {
+                            verticalCenter: parent.verticalCenter
                         }
                     }
                 }
-                RowLayout {
-                    id: centerLayoutRoot
-
-                    anchors {
-                        centerIn: parent
-                        verticalCenter: parent.verticalCenter
-                    }
-                    BarItem {
-                        Clock {}
-                      }
-                      BarItem {
-                        NotifIcon {
-                          anchors.verticalCenter: parent.verticalCenter
-                        }
+            }
+            RowLayout {
+                id: centerLayoutRoot
+                spacing: 4
+                anchors {
+                    centerIn: parent
+                    verticalCenter: parent.verticalCenter
+                }
+                BarItem {
+                    Clock {}
+                }
+                BarItem {
+                    NotifIcon {
+                        anchors.verticalCenter: parent.verticalCenter
                     }
                 }
-                RowLayout {
-                    id: rightLayoutRoot
-                    anchors {
-                        right: parent.right
-                        rightMargin: 10
-                        verticalCenter: parent.verticalCenter
-                    }
-                    BarItem {
-                        KbLayout {}
-                    }
-                    // WallpaperButton {}
-                    DeviceButton {}
-                    BarItem {
-                        ScreenshotButton {
-                            anchors.verticalCenter: parent.verticalCenter
-                            anchors.rightMargin: 2
-                            anchors.leftMargin: 2
-                        }
-                    }
-                    BarItem {
-                        ClipboardButton {
-                            anchors.verticalCenter: parent.verticalCenter
-                            anchors.leftMargin: 2
-                            anchors.rightMargin: 2
-                        }
-                    }
-                    BarItem {
-                        SysTray {
-                            anchors.verticalCenter: parent.verticalCenter
-                        }
-                    }
-                    VolumeButton {
-                        id: volumeButton
-                    }
-                    BatteryRadial {}
-                    DockButton {}
+            }
+            RowLayout {
+                id: rightLayoutRoot
+                spacing: 4
+                anchors {
+                    right: parent.right
+                    rightMargin: 10
+                    verticalCenter: parent.verticalCenter
                 }
+                BarItem {
+                    KbLayout {}
+                }
+                DeviceButton {}
+                BarItem {
+                    ScreenshotButton {
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.rightMargin: 2
+                        anchors.leftMargin: 2
+                    }
+                }
+                BarItem {
+                    ClipboardButton {
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.leftMargin: 2
+                        anchors.rightMargin: 2
+                    }
+                }
+                BarItem {
+                    SysTray {
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
+                }
+                BarItem {
+                    BluetoothIcon {
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.rightMargin: 2
+                        anchors.leftMargin: 2
+                    }
+                }
+                VolumeButton {
+                    id: volumeButton
+                }
+                BatteryRadial {}
+                DockButton {}
+            }
         }
     }
 }

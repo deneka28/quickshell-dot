@@ -8,10 +8,10 @@ import "root:/"
 Rectangle {
     id: root
 
-    property string useHome: info.storHomeUsed
-    property string useRoot: info.storRootUsed
-    property string freeRoot: info.storRootFree
-    property string freeHome: info.storHomeFree
+    property real useHome: info.storHomeUsed
+    property real useRoot: info.storRootUsed
+    property real freeRoot: info.storRootFree
+    property real freeHome: info.storHomeFree
     property int totalHome: info.storHomeFree + info.storHomeUsed
     property int totalRoot: info.storRootFree + info.storRootUsed
 
@@ -24,7 +24,7 @@ Rectangle {
         id: home
 
         size: 150
-        colorCircle: "#3058f3"
+        colorCircle: "#125ed4"
         colorBackground: Config.colors.bgcolor
         showBackground: false
         arcBegin: 0
@@ -59,7 +59,7 @@ Rectangle {
         id: rootSpace
 
         size: 125
-        colorCircle: "#f33058"
+        colorCircle: "#d5123c"
         colorBackground: Config.colors.bgcolor
         showBackground: false
         arcBegin: 0

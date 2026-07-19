@@ -5,15 +5,15 @@ import Quickshell
 
 import "components"
 import "components/widgets"
-// import "components/overlays"
 import "components/notifications"
 
 ShellRoot {
-  id: root
+    id: root
     Scope {
         Bar {}
-        DockPanel { id: dockPopup }
-        // Overlays {}
+        DockPanel {
+            id: dockPopup
+        }
         Notification {}
     }
 }

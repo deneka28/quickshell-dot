@@ -1,7 +1,7 @@
-import QtQuick
-import Quickshell
 // Central config file
 pragma Singleton
+import QtQuick
+import Quickshell
 
 Singleton {
     id: root
@@ -16,19 +16,22 @@ Singleton {
     // username
     property string name: "alex"
     property string shell: Quickshell.env("SHELL") ?? "fish"
-    // user terminal (kitty), user shell (fish)
+    // user terminal (wezterm), user shell (fish)
     property string terminal: Quickshell.env("TERM") ?? "wezterm"
-    property var keyboardLayouts: [{
-        "code": "us",
-        "label": "English (US)",
-        "color": "dadada",
-        "default": true
-    }, {
-        "code": "ru",
-        "label": "Russian",
-        "color": "dadada",
-        "default": false
-    }]
+    property var keyboardLayouts: [
+        {
+            "code": "us",
+            "label": "English (US)",
+            "color": "dadada",
+            "default": true
+        },
+        {
+            "code": "ru",
+            "label": "Russian",
+            "color": "dadada",
+            "default": false
+        }
+    ]
 
     Component.onCompleted: () => {
         console.log("Hello, " + root.name + "!");
@@ -64,18 +67,5 @@ Singleton {
         property string yellow700: "#FFD700"
         property string yellow600: "#FFEB3B"
         property string yellow500: "#FFEC88"
-        // -- info
-        property string navy900: "#0C00DD"
-        property string navy800: "#2E22FF"
-        property string navy700: "#4E44FF"
-        property string navy600: "#6E66FF"
-        property string navy500: "#8E88FF"
-        // --success
-        property string green900: "#007742"
-        property string green800: "#00BB67"
-        property string green700: "#00FF8D"
-        property string green600: "#44FFAB"
-        property string green500: "#88FFCA"
     }
-
 }

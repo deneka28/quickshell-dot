@@ -6,6 +6,7 @@ Rectangle {
 
     property bool hovered: mouseArea.containsMouse
     property string text
+    property string icon
     property real fontPixelSize
     property real fontPointSize
     property color fontColor
@@ -27,6 +28,18 @@ Rectangle {
         font.pixelSize: root.fontPixelSize
         color: root.fontColor
         text: root.text
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
+        anchors.centerIn: parent
+    }
+
+    Text {
+        id: icons
+
+        font.pointSize: root.fontPointSize
+        font.pixelSize: root.fontPixelSize
+        color: root.fontColor
+        text: root.icon
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
         anchors.centerIn: parent

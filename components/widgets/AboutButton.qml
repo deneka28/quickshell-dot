@@ -1,67 +1,76 @@
+import "../shared"
 import QtQuick
 import Quickshell
 import Quickshell.Hyprland
-
 import "root:/"
-import "../shared"
 
 Rectangle {
     id: rectR
+
     width: 240
     height: 30
     //border.width: 1
     anchors.horizontalCenter: parent.horizontalCenter
-
     color: powerM.containsMouse ? '#b703a8f4' : "transparent"
     radius: 4
 
-    Behavior on color {
-        ColorAnimation {
-            duration: 250
-        }
-    }
     Row {
         anchors.margins: 8
+
         Text {
             id: aboutText
+
             text: "About system"
             anchors.verticalCenter: parent.verticalCenter
             leftPadding: 6
             font.pixelSize: 14
             font.family: Config.font
             color: Config.colors.fontcolor
-            opacity: powerM.containsMouse ? 1.0 : 0.8
+            opacity: powerM.containsMouse ? 1 : 0.8
 
             Behavior on opacity {
                 NumberAnimation {
                     duration: 150
                 }
+
             }
+
         }
+
         Item {
-            width: rectR.width - aboutText.width - aboutButton.width 
+            width: rectR.width - aboutText.width - aboutButton.width - 4
             height: 24
         }
-        BarButton {
-            id: aboutButton
-            iconSource: Quickshell.iconPath("start-here-symbolic")
 
+        CustomButton {
+            id: aboutButton
+
+            //iconSource: Quickshell.iconPath("start-here-symbolic")
             signal togglePopup(bool visible)
 
-            onHovered: function (hovered) {
+            implicitWidth: 24
+            implicitHeight: 24
+            // anchors.centerIn: parent
+            iconSource: "../../assets/arch.svg"
+            onHovered: function(hovered) {
                 aboutButton.togglePopup(hovered);
             }
-            scale: powerM.containsMouse ? 1.1 : 1.0
+            scale: powerM.containsMouse ? 1.1 : 1
 
             Behavior on scale {
                 NumberAnimation {
                     duration: 150
                 }
+
             }
+
         }
+
     }
+
     MouseArea {
         id: powerM
+
         anchors.fill: parent
         cursorShape: Qt.PointingHandCursor
         hoverEnabled: true
@@ -73,20 +82,22 @@ Rectangle {
 
     HyprlandFocusGrab {
         id: grab
+
         windows: [slidingPopup]
         onCleared: {
             slidingPopup.closeWithAnimation();
         }
     }
+
     PopupPanel {
         id: slidingPopup
 
-        direction: "down" // left, right, up, down
+        property bool open: false
 
+        direction: "down" // left, right, up, down
         implicitWidth: 400
         implicitHeight: 300
         visible: open
-        property bool open: false
         color: "transparent"
         cornerRadius: 5
 
@@ -98,6 +109,7 @@ Rectangle {
             radius: 8
             border.width: 1
             border.color: '#0cc0f2'
+
             Rectangle {
                 id: header
 
@@ -108,6 +120,7 @@ Rectangle {
 
                 Text {
                     id: textHead
+
                     text: Config.distro
                     font.pixelSize: 18
                     font.family: Config.font
@@ -115,7 +128,9 @@ Rectangle {
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.horizontalCenter: parent.horizontalCenter
                 }
+
             }
+
             Rectangle {
                 id: spaser
 
@@ -125,6 +140,7 @@ Rectangle {
                 anchors.top: header.bottom
                 color: Config.colors.fontcolor
             }
+
             Rectangle {
                 id: sysInfo
 
@@ -134,16 +150,20 @@ Rectangle {
                 //border.width: 1
                 anchors.top: spaser.bottom
                 anchors.horizontalCenter: parent.horizontalCenter
+
                 Text {
                     id: compName
+
                     text: "Computer name: alex-home"
                     font.pixelSize: 12
                     font.family: Config.font
                     color: Config.colors.fontcolor
                     topPadding: 8
                 }
+
                 Text {
                     id: userName
+
                     text: "User name: alex"
                     font.pixelSize: 12
                     font.family: Config.font
@@ -151,7 +171,18 @@ Rectangle {
                     topPadding: 4
                     anchors.top: compName.bottom
                 }
+
             }
+
         }
+
     }
+
+    Behavior on color {
+        ColorAnimation {
+            duration: 250
+        }
+
+    }
+
 }

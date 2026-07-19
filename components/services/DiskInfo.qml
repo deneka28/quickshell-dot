@@ -18,13 +18,12 @@ Item {
     property real storRootFree
     property real storHomeFree
     property real storHomeUsed
-    // property real storagePerc: storageTotal > 0 ? storageUsed / storageTotal : 0
     property string storageDev
 
     Process {
         id: diskProc
 
-        command: ["sh", "-c", "df -h /"]
+        command: ["sh", "-c", "df -H /"]
         Component.onCompleted: running = true
 
         stdout: SplitParser {
@@ -42,7 +41,7 @@ Item {
     Process {
         id: diskP
 
-        command: ["sh", "-c", "df -h /home"]
+        command: ["sh", "-c", "df -H /home"]
         Component.onCompleted: running = true
 
         stdout: SplitParser {
