@@ -19,7 +19,6 @@ Rectangle {
     Layout.fillWidth: true
     Layout.rightMargin: activeMargin
     Layout.leftMargin: inactiveMargin
-
     function updateGeometry(w, h) {
         root.Layout.minimumHeight = h;
         root.Layout.maximumHeight = h;
@@ -37,11 +36,10 @@ Rectangle {
         id: area
         anchors.fill: parent
         hoverEnabled: true
-        
+
         onClicked: () => {
             workspaces.switchWorkspace(wnum);
         }
-
     }
 
     Behavior on width {
@@ -83,7 +81,7 @@ Rectangle {
             when: !root.active
             PropertyChanges {
                 target: root
-                height: 7 
+                height: 7
                 width: 7
                 opacity: 0.5
             }

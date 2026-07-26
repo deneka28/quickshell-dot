@@ -63,7 +63,6 @@ Item {
             right: 0
             left: 0
         }
-
         Rectangle {
             id: barContent
             anchors.fill: parent

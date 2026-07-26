@@ -17,7 +17,6 @@ SlidingPopup {
         edges: Edges.Top
         gravity: Edges.Bottom
     }
-    
     implicitWidth: 700
     implicitHeight: 400
     visible: open
@@ -38,21 +37,19 @@ SlidingPopup {
         Row {
             anchors.fill: parent
             spacing: 1
-                Rectangle {
-                    id: blue
-                    color: "transparent"
-                    implicitWidth: parent.width / 2
-                    implicitHeight: parent.height
+            Rectangle {
+                id: blue
+                color: "transparent"
+                implicitWidth: parent.width / 2
+                implicitHeight: parent.height
 
-                    NotificationHistory {
-                        anchors.fill: blue
-                    }
-
+                NotificationHistory {
+                    anchors.fill: blue
                 }
+            }
             Rectangle {
                 id: spaser
                 color: "#2196F3"
-                //border.width: 1
                 implicitWidth: 1
                 implicitHeight: parent.height - 30
                 anchors.verticalCenter: parent.verticalCenter

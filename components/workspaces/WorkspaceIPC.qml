@@ -1,29 +1,35 @@
 import QtQuick
 import Quickshell
 import Quickshell.Hyprland
+import Quickshell.Io
 import Quickshell.I3
 
 Item {
     id: root
 
     property int active: 1 // currently active workspace
-    property int amount: 9 // amount of workspaces
+    property int amount: 10 // amount of workspaces
     property string name: "unknown" // name of the current desktop
 
-    property var switchWorkspace: w => {
-        console.log(`We are switching from workspace ${active} to ${w}`);
+    function switchWorkspace(w) {
         switch (root.name) {
         case "sway":
+        case "none+i3":
             I3.dispatch(`workspace ${w}`);
             break;
         case "Hyprland":
-            Hyprland.dispatch(`workspace ${w}`);
+            switchProcess.command = ["hyprctl", "eval", `hl.dispatch(hl.dsp.focus({ workspace = "${w}" }))`];
+            switchProcess.running = true;
             break;
         default:
             console.log("unhandled");
         }
     }
 
+    Process {
+        id: switchProcess
+        running: false
+    }
     Component.onCompleted: {
         root.name = Quickshell.env("XDG_CURRENT_DESKTOP");
 

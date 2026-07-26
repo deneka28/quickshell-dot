@@ -74,12 +74,13 @@ Scope {
 
             Repeater {
                 id: rep
-    // Используем функцию фильтрации, которая будет срабатывать при обновлении данных
+                // Используем функцию фильтрации, которая будет срабатывать при обновлении данных
                 model: {
-                    if (Shell.flags.misc.dndEnabled || !Shell.flags.misc.notificationDaemonEnabled) return [];
-        
-        // Принудительно подписываемся на изменения в синглтоне
-                    var dummy = NotifServer.data; 
+                    if (Shell.flags.misc.dndEnabled || !Shell.flags.misc.notificationDaemonEnabled)
+                        return [];
+
+                    // Принудительно подписываемся на изменения в синглтоне
+                    var dummy = NotifServer.data;
                     return NotifServer.data.filter(n => n.popup);
                 }
 
@@ -110,7 +111,7 @@ Scope {
                         case 2:
                             console.log("case2:", modelData.urgency);
                             return urgencyCritical;
-                        default: 
+                        default:
                             return modelData.image || modelData.appIcon;
                         }
                     }
@@ -128,21 +129,26 @@ Scope {
                                     action.invoke();
                                 }
                             }))
-        
-        // Упрощенный расчет Y для плавности
-                y: {
-                    var pos = 0;
-                    for (let i = 0; i < index; i++) {
-                        var prev = rep.itemAt(i);
-                        if (prev) pos += prev.height + root.innerSpacing;
+
+                    // Упрощенный расчет Y для плавности
+                    y: {
+                        var pos = 0;
+                        for (let i = 0; i < index; i++) {
+                            var prev = rep.itemAt(i);
+                            if (prev)
+                                pos += prev.height + root.innerSpacing;
+                        }
+                        // Добавляем небольшой отступ сверху
+                        return pos + 20;
                     }
-            // Добавляем небольшой отступ сверху
-                    return pos + 20;
-                }
-        
-        // Анимация появления/исчезновения
-                opacity: modelData.popup ? 1 : 0
-                    Behavior on opacity { NumberAnimation { duration: 200 } }
+
+                    // Анимация появления/исчезновения
+                    opacity: modelData.popup ? 1 : 0
+                    Behavior on opacity {
+                        NumberAnimation {
+                            duration: 200
+                        }
+                    }
                 }
             }
         }

@@ -8,12 +8,6 @@ import "../widgets"
 import qs
 
 Rectangle {
-
-
-
-
-
-
     id: root
     property bool startAnim: false
 
@@ -114,7 +108,7 @@ Rectangle {
                         onClicked: modelData.onClick()
                         color: Config.colors.controlscolor
                         fontColor: Config.colors.fontcolor
-                        fontPixelSize: 12 
+                        fontPixelSize: 12
                         radius: 4
                     }
                 }
@@ -127,15 +121,15 @@ Rectangle {
         anchors.fill: parent
         onClicked: {
             if (root.rawNotif && root.rawNotif.notification) {
-            // Если есть кнопки, вызываем первую (default action)
+                // Если есть кнопки, вызываем первую (default action)
                 if (root.buttons.length >= 1) {
                     root.buttons[0].onClick();
                 }
-            
-            // Важно: помечаем, что это больше не поп-ап, чтобы он исчез с экрана
+
+                // Важно: помечаем, что это больше не поп-ап, чтобы он исчез с экрана
                 root.rawNotif.popup = false;
-            
-            // Закрываем уведомление на уровне сервера (DBus)
+
+                // Закрываем уведомление на уровне сервера (DBus)
                 root.rawNotif.notification.dismiss();
             }
         }

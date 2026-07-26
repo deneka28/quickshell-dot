@@ -2,6 +2,7 @@ pragma Singleton
 
 import Quickshell
 import Quickshell.Services.Pipewire
+import "../OSD"
 
 Singleton {
     id: root
@@ -50,4 +51,6 @@ Singleton {
     function setSourceVolume(volume: real) {
         Quickshell.execDetached(["wpctl", "set-volume", "@DEFAULT_SOURCE@", volume]);
     }
+    // onSinkVolumeChanged: OsdService.showVolume(volume, muted)
+    // onSinkMutedChanged: OsdService.showVolume(volume, muted)
 }
